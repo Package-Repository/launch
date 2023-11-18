@@ -1,14 +1,16 @@
 import os
+from vision.vision.vision_main import VideoRunner
 #"/vision/vision/vision_main.py"
 def main():
-    os.system('checkscript.sh')
+    
     processid = os.fork()
 
     if processid == 0:
         print("main process")
     else:
         print("child process")
-        os.system('python3 ./vision/vision/vision_main.py')
+        vis = VideoRunner()
+        vis.run_loop()
 
 
 if __name__ == '__main__':
