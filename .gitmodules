@@ -1,0 +1,3 @@
+[submodule "vision/vision"]
+	path = vision/vision
+	url = https://github.com/Package-Repository/zed_vision.git
