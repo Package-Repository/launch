@@ -1,14 +1,22 @@
-from multiprocessing import Process, Value, set_start_method
+from multiprocessing import Process, Value
 from vision.vision.vision_main import VideoRunner
 from shared_memory_reader import SharedMemoryReader
-#"/vision/vision/vision_main.py"
-def main():
-    # try:
-    #     set_start_method('spawn')
-    # except RuntimeError:
-    #     pass
+
+'''
+    discord: @kialli
+    github: @kchan5071
     
-    #create shared memory
+    creates shared memory to communicate between vision and control
+    
+    vision: writes to shared memory
+    
+    currently just printing process data, later to use with PID control
+    
+'''
+
+
+
+def main():
     ang_vel_x = Value('d', 0.0)
     ang_vel_y = Value('d', 0.0)
     ang_vel_z = Value('d', 0.0)
