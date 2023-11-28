@@ -11,6 +11,8 @@ from shared_memory_reader import SharedMemoryReader
     vision: writes to shared memory
     currently just printing process data, later to use with PID control
     
+    could use arrays, too lazy
+    
 '''
 
 
