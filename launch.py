@@ -41,11 +41,11 @@ def main():
     
     # start processes
     zed_process.start()
-    #reader_process.start()
+    reader_process.start()
     
     # join processes
     zed_process.join()
-    #reader_process.join()
+    reader_process.join()
     
 
 if __name__ == '__main__':
