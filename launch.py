@@ -47,14 +47,17 @@ def main():
     #create processes
     zed_process = Process(target=vis.run_loop)
     reader_process = Process(target=shm.run_loop)
+    # todo: create mission planner process
     
     # start processes
     zed_process.start()
     reader_process.start()
+    # todo: start mission planner process
     
     # join processes
     zed_process.join()
     reader_process.join()
+    # todo: join mission planner process
     
 
 if __name__ == '__main__':
