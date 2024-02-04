@@ -6,7 +6,7 @@ from shared_memory_reader import SharedMemoryReader
     discord: @kialli
     github: @kchan5071
     
-    creates shared memory to communicate between vision and control
+    creates shared memory and processes to communicate between vision and control
     
     vision: writes to shared memory
     currently just printing process data, later to use with PID control
