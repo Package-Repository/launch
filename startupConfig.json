@@ -1,0 +1,17 @@
+{
+    "scripts": [
+      {
+        "command": ["helloWorld.py"]
+      },
+      {
+        "command": ["cameras.py"]
+      },
+      {
+        "command": ["pids.py", "-d", "r"]
+      },
+      {
+        "command": ["motors.py"]
+      }
+    ]
+  }
+  
