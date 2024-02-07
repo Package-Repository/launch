@@ -1,12 +1,15 @@
+#!/usr/bin/python3
 import json, subprocess
 
-CONFIG_FILE = "startupConfig.json"
+CONFIG_FILE = "/home/mechatronics/install/install/launch/startupConfig.json"
 
 with open(CONFIG_FILE, 'r') as file:
     data = json.load(file)
 
 for script in data.get('scripts', []):
-    try:
-        subprocess.run(script.get("command"), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    except FileNotFoundError as e:
-        print(f"Error executing the command for script '{script.get('name')}': {e}")
+    print("NACJAC")
+    # subprocess.run(script.get("command"), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    process = subprocess.Popen(script.get("command"), stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    stdout, stderr = process.communicate()
+    if process.returncode != 0:
+        print("Eat shit and die")
