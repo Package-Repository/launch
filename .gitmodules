@@ -1,3 +1,6 @@
 [submodule "vision/vision"]
 	path = vision/vision
 	url = https://github.com/Package-Repository/zed_vision.git
+[submodule "motor-interface"]
+	path = motor-interface
+	url = https://github.com/Package-Repository/motor-interface.git
