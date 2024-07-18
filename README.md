@@ -25,4 +25,14 @@ example:
 
 `git submodule add https://github.com/Package-Repository/ColorFilter.git`
 
+#### everythings broken
+
+you can either 
+`git reset --hard origin/main`
+on each submodule
+
+or rm -rf the whole thing and reclone
+
+SAVE SOMEWHERE ELSE BEFORE YOU DO THIS!
+
 
