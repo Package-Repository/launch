@@ -1,4 +1,4 @@
-[submodule "motor-interface"]
+[submodule "motors"]
 	path = motors
 	url = https://github.com/Package-Repository/motor-interface.git
 [submodule "vision"]
