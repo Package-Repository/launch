@@ -1,6 +1,9 @@
-[submodule "vision/vision"]
-	path = vision/vision
-	url = https://github.com/Package-Repository/zed_vision.git
 [submodule "motor-interface"]
 	path = motor-interface
 	url = https://github.com/Package-Repository/motor-interface.git
+[submodule "vision"]
+	path = vision
+	url = https://github.com/Package-Repository/vision.git
+[submodule "sensors"]
+	path = sensors
+	url = https://github.com/Package-Repository/sensors.git
