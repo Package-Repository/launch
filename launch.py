@@ -4,7 +4,7 @@ from shared_memory_reader           import SharedMemoryReader
 from sensors.depth_sensor_interface import DepthSensorInterface
 from motors.MotorInterface          import MotorInterface
 
-'''
+"""
     discord: @kialli
     github: @kchan5071
     
@@ -15,7 +15,7 @@ from motors.MotorInterface          import MotorInterface
     
     could use arrays, too lazy
     
-'''
+"""
 
 def main():
     ang_vel_x                   = Value('d', 0.0)
