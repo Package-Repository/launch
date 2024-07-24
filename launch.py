@@ -82,20 +82,20 @@ def main():
     
     #create processes
     zed_process                 = Process(target=vis.run_loop)
-    reader_process              = Process(target=shm.run_loop)
+    #reader_process              = Process(target=shm.run_loop)
     depth_sensor_process        = Process(target=depth_sensor.run_loop)
     interface                   = Process(target=interface.run_loop)
     
     # start processes
     zed_process.start()
-    reader_process.start()
-    depth_sensor.start()
+    #reader_process.start()
+    depth_sensor_process.start()
     interface.start()
     
     # join processes
     zed_process.join()
-    reader_process.join()
-    depth_sensor.join()
+    #reader_process.join()
+    depth_sensor_process.join()
     interface.join()
     
 

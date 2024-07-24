@@ -1,15 +1,14 @@
 from multiprocessing import Process, Value
 from subprocess import call
 
-'''
-    discord: @kialli
-    github: @kchan5071
-    
-    test class to read from shared memory and print values
-    
-'''
-
 class SharedMemoryReader:
+    '''
+        discord: @kialli
+        github: @kchan5071
+        
+        test class to read from shared memory and print values
+        
+    '''
     def __init__(self, linear_acceleration_x , linear_acceleration_y, linear_acceleration_z, 
                 angular_velocity_x, angular_velocity_y, angular_velocity_z, 
                 orientation_x, orientation_y, orientation_z, 
