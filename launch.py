@@ -3,8 +3,9 @@ from vision.vision_main             import VideoRunner
 from shared_memory_reader           import SharedMemoryReader
 from sensors.depth_sensor_interface import DepthSensorInterface
 from motors.MotorInterface          import MotorInterface
+import ctypes
 
-'''
+"""
     discord: @kialli
     github: @kchan5071
     
@@ -15,7 +16,7 @@ from motors.MotorInterface          import MotorInterface
     
     could use arrays, too lazy
     
-'''
+"""
 
 def main():
     ang_vel_x                   = Value('d', 0.0)
@@ -27,10 +28,19 @@ def main():
     orientation_x               = Value('d', 0.0)
     orientation_y               = Value('d', 0.0)
     orientation_z               = Value('d', 0.0)
-    depth                       = Value('d', 0.0)
-    offset_x                    = Value('d', 0.0)
-    offset_y                    = Value('d', 0.0)
-    depth_z                     = Value('d', 0.0)    
+    distance                    = Value('d', 0.0)
+    yolo_offset_x               = Value('d', 0.0)
+    yolo_offset_y               = Value('d', 0.0)
+    depth_z                     = Value('d', 0.0)   
+    color                       = Value('i', 0)
+    color_offset_x              = Value('d', 0.0)
+    color_offset_y              = Value('d', 0.0)
+    color_enable                = Value('b', False)
+    yolo_enable                 = Value('b', False)
+
+    
+
+
     
     depth_sensor = DepthSensorInterface(z=depth_z)
     
@@ -44,9 +54,14 @@ def main():
         orientation_x           = orientation_x,
         orientation_y           = orientation_y,
         orientation_z           = orientation_z,
-        depth                   = depth,
-        offset_x                = offset_x,
-        offset_y                = offset_y
+        distance                = distance,
+        yolo_offset_x           = yolo_offset_x,
+        yolo_offset_y           = yolo_offset_y,
+        color                   = color,
+        color_offset_x          = color_offset_x,
+        color_offset_y          = color_offset_y,
+        color_enable            = color_enable,
+        yolo_enable             = yolo_enable
     )
 
     interface = MotorInterface(
@@ -59,10 +74,12 @@ def main():
         orientation_x           = orientation_x,
         orientation_y           = orientation_y,
         orientation_z           = orientation_z,
-        depth                   = depth,
-        offset_x                = offset_x,
-        offset_y                = offset_y,
-        dvl_z                   = depth_z
+        distance                = distance,
+        yolo_offset_x           = yolo_offset_x,
+        yolo_offset_y           = yolo_offset_y,
+        dvl_z                   = depth_z,
+        color_offset_x          = color_offset_x,
+        color_offset_y          = color_offset_y
     )       
     
     shm = SharedMemoryReader(
@@ -75,9 +92,9 @@ def main():
         orientation_x           = orientation_x,
         orientation_y           = orientation_y,
         orientation_z           = orientation_z,             
-        depth                   = depth,
-        offset_x                = offset_x,
-        offset_y                = offset_y
+        depth                   = distance,
+        yolo_offset_x           = yolo_offset_x,
+        yolo_offset_y           = yolo_offset_y
     )
     
     #create processes
