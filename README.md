@@ -11,11 +11,16 @@ creates shared memory for processes to communicate
 
 
 #### stage, commit, and push changes
+
+if you have changes on a bunch of branches
+
 `git submodule foreach git add .`
 
 `git submodule foreach git commit -m "message"`
 
 `git submodule foreach git push`
+
+if you only have a change on one branch, you can just do the normal stuff
 
 #### add submodule
 
