@@ -20,7 +20,8 @@ if you have changes on a bunch of branches
 
 `git submodule foreach git push`
 
-if you only have a change on one branch, you can just do the normal stuff
+if you only have a change on one branch, you can just do the normal stuff such as 
+`git add .`
 
 #### add submodule
 
