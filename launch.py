@@ -1,9 +1,10 @@
-from multiprocessing                import Process, Value
-from vision.vision_main             import VideoRunner
-from shared_memory_reader           import SharedMemoryReader
-from sensors.depth_sensor_interface import DepthSensorInterface
-from motors.MotorInterface          import MotorInterface
-import ctypes
+from multiprocessing                    import Process, Value
+# from vision.vision_main                 import VideoRunner
+from shared_memory_reader               import SharedMemoryReader
+from sensors.depth_sensor_interface     import DepthSensorInterface
+from motors.MotorInterface              import MotorInterface
+# import ctypes
+from vision.ColorFilter.color_filter    import ColorFilter
 
 """
     discord: @kialli
@@ -43,26 +44,28 @@ def main():
 
     
     depth_sensor = DepthSensorInterface(z=depth_z)
+
+    color_sensor = ColorFilter(color_offset_x, color_offset_y)
     
-    vis = VideoRunner(
-        linear_acceleration_x   = lin_acc_x,
-        linear_acceleration_y   = lin_acc_y,
-        linear_acceleration_z   = lin_acc_z,
-        angular_velocity_x      = ang_vel_x,
-        angular_velocity_y      = ang_vel_y,
-        angular_velocity_z      = ang_vel_z,
-        orientation_x           = orientation_x,
-        orientation_y           = orientation_y,
-        orientation_z           = orientation_z,
-        distance                = distance,
-        yolo_offset_x           = yolo_offset_x,
-        yolo_offset_y           = yolo_offset_y,
-        color                   = color,
-        color_offset_x          = color_offset_x,
-        color_offset_y          = color_offset_y,
-        color_enable            = color_enable,
-        yolo_enable             = yolo_enable
-    )
+    # vis = VideoRunner(
+    #     linear_acceleration_x   = lin_acc_x,
+    #     linear_acceleration_y   = lin_acc_y,
+    #     linear_acceleration_z   = lin_acc_z,
+    #     angular_velocity_x      = ang_vel_x,
+    #     angular_velocity_y      = ang_vel_y,
+    #     angular_velocity_z      = ang_vel_z,
+    #     orientation_x           = orientation_x,
+    #     orientation_y           = orientation_y,
+    #     orientation_z           = orientation_z,
+    #     distance                = distance,
+    #     yolo_offset_x           = yolo_offset_x,
+    #     yolo_offset_y           = yolo_offset_y,
+    #     color                   = color,
+    #     color_offset_x          = color_offset_x,
+    #     color_offset_y          = color_offset_y,
+    #     color_enable            = color_enable,
+    #     yolo_enable             = yolo_enable
+    # )
 
     interface = MotorInterface(
         linear_acceleration_x   = lin_acc_x,
@@ -74,12 +77,12 @@ def main():
         orientation_x           = orientation_x,
         orientation_y           = orientation_y,
         orientation_z           = orientation_z,
-        distance                = distance,
-        yolo_offset_x           = yolo_offset_x,
-        yolo_offset_y           = yolo_offset_y,
+        depth                   = distance,
+        # yolo_offset_x           = yolo_offset_x,
+        # yolo_offset_y           = yolo_offset_y,
         dvl_z                   = depth_z,
-        color_offset_x          = color_offset_x,
-        color_offset_y          = color_offset_y
+        offset_x                = color_offset_x,
+        offset_y                = color_offset_y
     )       
     
     shm = SharedMemoryReader(
@@ -93,27 +96,31 @@ def main():
         orientation_y           = orientation_y,
         orientation_z           = orientation_z,             
         depth                   = distance,
-        yolo_offset_x           = yolo_offset_x,
-        yolo_offset_y           = yolo_offset_y
+        offset_x                = color_offset_x,
+        offset_y                = color_offset_y
     )
     
     #create processes
-    zed_process                 = Process(target=vis.run_loop)
-    #reader_process              = Process(target=shm.run_loop)
+    # zed_process                 = Process(target=vis.run_loop)
+    # reader_process              = Process(target=shm.run_loop)
     depth_sensor_process        = Process(target=depth_sensor.run_loop)
     interface                   = Process(target=interface.run_loop)
+    detect_color                = Process(target=color_sensor.set_offsets_loop)
+
     
     # start processes
-    zed_process.start()
+    # zed_process.start()
     #reader_process.start()
     depth_sensor_process.start()
     interface.start()
+    detect_color.start()
     
     # join processes
-    zed_process.join()
+    # zed_process.join()
     #reader_process.join()
     depth_sensor_process.join()
     interface.join()
+    detect_color.join()
     
 
 if __name__ == '__main__':
