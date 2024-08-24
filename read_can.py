@@ -3,7 +3,7 @@ import time
 from subprocess import run, call
 from multiprocessing import Process, Value
 from launch import main as launch
-
+import os 
 
 filters = [{"can_id": 0x007, "can_mask": 0x7FF}]
 bus = can.Bus(interface='socketcan',channel = 'can0', receive_own_messages=True, can_filters = filters)
@@ -22,12 +22,13 @@ while True:
     if message.arbitration_id == 0x007:
         if data[0] == 4:
             print("STARTING", data[0])
-            time.sleep(3)
+            os.system("pkill -f zed")
+            os.system("pkill -f depth")
+            #pkill -f depth
+            #pkill -f zed
             message = can.Message(arbitration_id = 10, is_extended_id = False, data = None)
             bus.send(message)
             launch_process = Process(target=launch)
-            launch_process.start()
-            launch_process.join()
             light_enable = bytearray([0x04, 0x00, 0x00, 0x00, 0x01])
             message = can.Message(arbitration_id = 34, is_extended_id = False, data = light_enable)
             bus.send(message)
@@ -38,9 +39,10 @@ while True:
             light_off = bytearray([0x04, 0x00, 0x04, 0x00, 0x00])
             message = can.Message(arbitration_id = 34, is_extended_id = False, data = light_off)
             bus.send(message)
+            launch_process.start()
+            launch_process.join()
         elif data[0] == 0:
             try:
-                time.sleep(3)
                 print("READY")
             except:
                 pass
