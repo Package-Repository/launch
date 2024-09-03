@@ -4,7 +4,7 @@ from shared_memory_reader           import SharedMemoryReader
 from sensors.depth_sensor_interface import DepthSensorInterface
 from motors.MotorInterface          import MotorInterface
 from kill_button_interface          import Kill_Button_Interface
-from multiprocessing.shared_memory  import SharedMemory
+from shared_memory                  import SharedMemoryWrapper
 import ctypes
 
 import time
@@ -23,59 +23,20 @@ import time
 """
 def main():
     # create shared memory
-    shared_memory_object = SharedMemory()
+    shared_memory_object = SharedMemoryWrapper()
     X_HARD_DEADZONE             = 400
 
 
-
-
-
-    depth_sensor = DepthSensorInterface(z       = shared_memory_object.depth, 
-                                        running = shared_memory_object.running)
+    depth_sensor = DepthSensorInterface(shared_memory_object)
 
     kill_button_listener = Kill_Button_Interface(running = shared_memory_object.running)
 
     vis = VideoRunner(
-        linear_acceleration_x   = shared_memory_object.imu_lin_acc[0],
-        linear_acceleration_y   = shared_memory_object.imu_lin_acc[1],
-        linear_acceleration_z   = shared_memory_object.imu_lin_acc[2],
-        angular_velocity_x      = shared_memory_object.imu_ang_vel[0],
-        angular_velocity_y      = shared_memory_object.imu_ang_vel[1],
-        angular_velocity_z      = shared_memory_object.imu_ang_vel[2],
-        orientation_x           = shared_memory_object.imu_orientation[0],
-        orientation_y           = shared_memory_object.imu_orientation[1],
-        orientation_z           = shared_memory_object.imu_orientation[2],
-        distance                = shared_memory_object.distance_from_object,
-        yolo_offset_x           = shared_memory_object.yolo_offset[0],
-        yolo_offset_y           = shared_memory_object.yolo_offset[1],
-        color                   = shared_memory_object.current_color_index,
-        color_offset_x          = shared_memory_object.color_offset[0],
-        color_offset_y          = shared_memory_object.color_offset[1],
-        color_enable            = shared_memory_object.color_enable,
-        yolo_enable             = shared_memory_object.yolo_enable,
-        running                 = shared_memory_object.running,
+        shared_memory_object=shared_memory_object,
         hard_deadzone           = X_HARD_DEADZONE
     )
 
-    interface = MotorInterface(
-        linear_acceleration_x   = shared_memory_object.imu_lin_acc[0],
-        linear_acceleration_y   = shared_memory_object.imu_lin_acc[1],
-        linear_acceleration_z   = shared_memory_object.imu_lin_acc[2],
-        angular_velocity_x      = shared_memory_object.imu_ang_vel[0],
-        angular_velocity_y      = shared_memory_object.imu_ang_vel[1],
-        angular_velocity_z      = shared_memory_object.imu_ang_vel[2],
-        orientation_x           = shared_memory_object.imu_orientation[0],
-        orientation_y           = shared_memory_object.imu_orientation[1],
-        orientation_z           = shared_memory_object.imu_orientation[2],
-        dvl_z                   = shared_memory_object.depth,
-        distance                = shared_memory_object.distance_from_object,
-        yolo_offset_x           = shared_memory_object.yolo_offset[0],
-        yolo_offset_y           = shared_memory_object.yolo_offset[1],
-        color_offset_x          = shared_memory_object.color_offset[0],
-        color_offset_y          = shared_memory_object.color_offset[1],
-        running                 = shared_memory_object.running,
-        enable_color            = shared_memory_object.color_enable,
-        enable_yolo             = shared_memory_object.yolo_enable,
+    interface = MotorInterface(shared_memory_object=shared_memory_object,
         x_hard_deadzone         = X_HARD_DEADZONE
     )       
 
@@ -115,8 +76,8 @@ def main():
     kill_button_listener_process.start()
     depth_sensor_process.start()
     interface.start()
-    
-    # join processes
+
+    # wait for processes to finish
     zed_process.join()
     #reader_process.join()
     kill_button_listener_process.join()
