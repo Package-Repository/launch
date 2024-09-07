@@ -1,44 +1,23 @@
-# launch
+Python Multiprocessing
 
-launches all processes in the AUV
+Requirements
+Processes must end/fall through when SharedMemoryWrapper.running.value is false
+Keep Kill button and read_can implementation
+Create at least 2 processes
 
-creates shared memory for processes to communicate
+Do something cool:
+
+Get the intro template from github
+Ideas(motors)
+Stable state
+Follow Person/Color
+Ideas(no motors)
+Sensor data to web server (cherrypy)
 
 
-## how to use git submodules
+run ./roborun on startup
 
-`git clone --recursive https://github.com/Package-Repository/launch.git`
+if things go south ./robokill
 
-
-#### stage, commit, and push changes
-
-if you have changes on a bunch of branches
-
-`git submodule foreach git add .`
-
-`git submodule foreach git commit -m "message"`
-
-`git submodule foreach git push`
-
-if you only have a change on one branch, you can just do the normal stuff such as 
-`git add .`
-
-#### add submodule
-
-`git submodule add (link)`
-
-example:
-
-`git submodule add https://github.com/Package-Repository/ColorFilter.git`
-
-#### everythings broken
-
-you can either 
-`git reset --hard origin/main`
-on each submodule
-
-or rm -rf the whole thing and reclone
-
-SAVE SOMEWHERE ELSE BEFORE YOU DO THIS!
 
 
