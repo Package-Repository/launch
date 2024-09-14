@@ -4,6 +4,7 @@ from shared_memory_reader           import SharedMemoryReader
 from sensors.depth_sensor_interface import DepthSensorInterface
 from motors.MotorInterface          import MotorInterface
 from kill_button_interface          import Kill_Button_Interface
+from shared_memory                  import SharedMemoryWrapper
 import ctypes
 
 import time
@@ -21,99 +22,44 @@ import time
     
 """
 def main():
-    ang_vel_x                   = Value('d', 0.0)
-    ang_vel_y                   = Value('d', 0.0)
-    ang_vel_z                   = Value('d', 0.0)
-    lin_acc_x                   = Value('d', 0.0)
-    lin_acc_y                   = Value('d', 0.0)
-    lin_acc_z                   = Value('d', 0.0)
-    orientation_x               = Value('d', 0.0)
-    orientation_y               = Value('d', 0.0)
-    orientation_z               = Value('d', 0.0)   
-    distance                    = Value('d', 0.0)
-    yolo_offset_x               = Value('d', 0.0)
-    yolo_offset_y               = Value('d', 0.0)
-    depth_z                     = Value('d', 0.0)   
-    color                       = Value('i', 0)
-    color_offset_x              = Value('d', 0.0)
-    color_offset_y              = Value('d', 0.0)
-    color_enable                = Value('b', True)
-    yolo_enable                 = Value('b', False)
-    running                     = Value('b', True)
+    # create shared memory
+    shared_memory_object = SharedMemoryWrapper()
     X_HARD_DEADZONE             = 400
 
 
+    depth_sensor = DepthSensorInterface(shared_memory_object)
 
-
-
-    depth_sensor = DepthSensorInterface(z=depth_z, running = running)
-
-    kill_button_listener = Kill_Button_Interface(running=running)
+    kill_button_listener = Kill_Button_Interface(running = shared_memory_object.running)
 
     vis = VideoRunner(
-        linear_acceleration_x   = lin_acc_x,
-        linear_acceleration_y   = lin_acc_y,
-        linear_acceleration_z   = lin_acc_z,
-        angular_velocity_x      = ang_vel_x,
-        angular_velocity_y      = ang_vel_y,
-        angular_velocity_z      = ang_vel_z,
-        orientation_x           = orientation_x,
-        orientation_y           = orientation_y,
-        orientation_z           = orientation_z,
-        distance                = distance,
-        yolo_offset_x           = yolo_offset_x,
-        yolo_offset_y           = yolo_offset_y,
-        color                   = color,
-        color_offset_x          = color_offset_x,
-        color_offset_y          = color_offset_y,
-        color_enable            = color_enable,
-        yolo_enable             = yolo_enable,
-        running                 = running,
+        shared_memory_object=shared_memory_object,
         hard_deadzone           = X_HARD_DEADZONE
     )
 
-    interface = MotorInterface(
-        linear_acceleration_x   = lin_acc_x,
-        linear_acceleration_y   = lin_acc_y,
-        linear_acceleration_z   = lin_acc_z,
-        angular_velocity_x      = ang_vel_x,
-        angular_velocity_y      = ang_vel_y,
-        angular_velocity_z      = ang_vel_z,
-        orientation_x           = orientation_x,
-        orientation_y           = orientation_y,
-        orientation_z           = orientation_z,
-        dvl_z                   = depth_z,
-        distance                = distance,
-        yolo_offset_x           = yolo_offset_x,
-        yolo_offset_y           = yolo_offset_y,
-        color_offset_x          = color_offset_x,
-        color_offset_y          = color_offset_y,
-        running                 = running,
-        enable_color            = color_enable,
-        enable_yolo             = yolo_enable,
+    interface = MotorInterface(shared_memory_object=shared_memory_object,
         x_hard_deadzone         = X_HARD_DEADZONE
     )       
 
     shm = SharedMemoryReader(
-        linear_acceleration_x   = lin_acc_x,
-        linear_acceleration_y   = lin_acc_y,
-        linear_acceleration_z   = lin_acc_z,
-        angular_velocity_x      = ang_vel_x,
-        angular_velocity_y      = ang_vel_y,
-        angular_velocity_z      = ang_vel_z,
-        orientation_x           = orientation_x,
-        orientation_y           = orientation_y,
-        orientation_z           = orientation_z,
-        distance                = distance,
-        yolo_offset_x           = yolo_offset_x,
-        yolo_offset_y           = yolo_offset_y,
-        color                   = color,
-        depth                   = depth_z,
-        color_offset_x          = color_offset_x,
-        color_offset_y          = color_offset_y,
-        color_enable            = color_enable,
-        yolo_enable             = yolo_enable,
-        running                 = running
+        linear_acceleration_x   = shared_memory_object.imu_lin_acc[0],
+        linear_acceleration_y   = shared_memory_object.imu_lin_acc[1],
+        linear_acceleration_z   = shared_memory_object.imu_lin_acc[2],
+        angular_velocity_x      = shared_memory_object.imu_ang_vel[0],
+        angular_velocity_y      = shared_memory_object.imu_ang_vel[1],
+        angular_velocity_z      = shared_memory_object.imu_ang_vel[2],
+        orientation_x           = shared_memory_object.imu_orientation[0],
+        orientation_y           = shared_memory_object.imu_orientation[1],
+        orientation_z           = shared_memory_object.imu_orientation[2],
+        distance                = shared_memory_object.distance_from_object,
+        yolo_offset_x           = shared_memory_object.yolo_offset[0],
+        yolo_offset_y           = shared_memory_object.yolo_offset[1],
+        color                   = shared_memory_object.current_color_index,
+        depth                   = shared_memory_object.depth,
+        color_offset_x          = shared_memory_object.color_offset[0],
+        color_offset_y          = shared_memory_object.color_offset[1],
+        color_enable            = shared_memory_object.color_enable,
+        yolo_enable             = shared_memory_object.yolo_enable,
+        running                 = shared_memory_object.running
     )
 
     #create processes
@@ -130,8 +76,8 @@ def main():
     kill_button_listener_process.start()
     depth_sensor_process.start()
     interface.start()
-    
-    # join processes
+
+    # wait for processes to finish
     zed_process.join()
     #reader_process.join()
     kill_button_listener_process.join()
