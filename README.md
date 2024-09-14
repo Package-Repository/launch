@@ -14,11 +14,11 @@ creates shared memory for processes to communicate
 
 if you have changes on a bunch of branches
 
-`git submodule foreach git add .`
+`git submodule foreach --recursive git add .`
 
-`git submodule foreach git commit -m "message"`
+`git submodule foreach --recursive git commit -m "message"`
 
-`git submodule foreach git push`
+`git submodule foreach --recursive git push`
 
 if you only have a change on one branch, you can just do the normal stuff such as 
 `git add .`
