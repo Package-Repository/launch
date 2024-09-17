@@ -47,7 +47,7 @@ while True:
             except:
                 pass
         else:
-            print("it didnt work bitch")
+            print("PROCESS FAILED")
     # filter.filter
     #arbitration ID ytes()
     #filter out any command thats not 007

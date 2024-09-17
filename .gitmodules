@@ -7,3 +7,6 @@
 [submodule "sensors"]
 	path = sensors
 	url = https://github.com/Package-Repository/sensors.git
+[submodule "motor-interface"]
+	path = motor-interface
+	url = https://github.com/Package-Repository/motor-interface.git
