@@ -3,3 +3,5 @@ __pycache__/
 
 # mac bullshit
 .DS_Store
+
+log
