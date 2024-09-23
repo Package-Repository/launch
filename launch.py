@@ -3,6 +3,7 @@ from example_process                import Example_Process
 from shared_memory_wrapper          import SharedMemoryWrapper
 from sensors.a50_dvl.dvl_interface  import DVL_Interface
 from shared_memory_logger           import SharedMemoryLogger
+from kill_button                    import KillButtonInterface
 
 """
     discord: @kialli
