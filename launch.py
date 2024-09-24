@@ -4,6 +4,8 @@ from shared_memory_wrapper          import SharedMemoryWrapper
 from sensors.a50_dvl.dvl_interface  import DVL_Interface
 from shared_memory_logger           import SharedMemoryLogger
 from kill_button                    import KillButtonInterface
+import cherrypy
+from ui_webserver                   import LiveUpdateUIServer
 
 """
     discord: @kialli
@@ -35,6 +37,7 @@ def main():
     example_process.start()
     logger_object_process.start()
     # dvl_process.start()
+    cherrypy.quickStart(LiveUpdateUIServer(shared_memory_object))
 
     #ADD START PROCESSES HERE
 
