@@ -1,5 +1,4 @@
 from multiprocessing                import Process, Value
-from example_process                import Example_Process
 from shared_memory_wrapper          import SharedMemoryWrapper
 from sensors.a50_dvl.dvl_interface  import DVL_Interface
 from shared_memory_logger           import SharedMemoryLogger
@@ -20,29 +19,25 @@ def main():
     shared_memory_object = SharedMemoryWrapper()
 
     # create objects
-    example_object = Example_Process(shared_memory_object) 
     logger_object = SharedMemoryLogger(shared_memory_object)
     # dvl_object = DVL_Interface(shared_memory_object)
 
     #ADD OBJECTS HERE   
 
     #create processes
-    example_process = Process(target=example_object.run_loop)
     logger_object_process = Process(target=logger_object.run_loop)
     # dvl_process = Process(target=dvl_object.run_loop)
 
     #ADD PROCESSES HERE
     
     # start processes
-    example_process.start()
     logger_object_process.start()
     # dvl_process.start()
-    cherrypy.quickStart(LiveUpdateUIServer(shared_memory_object))
+    cherrypy.quickstart(LiveUpdateUIServer(shared_memory_object))
 
     #ADD START PROCESSES HERE
 
     # wait for processes to finish
-    example_process.join()
     logger_object_process.join()
     # dvl_process.join()
 
