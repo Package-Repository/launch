@@ -1,6 +1,6 @@
 [submodule "motors"]
 	path = motors
-	url = https://github.com/Package-Repository/motor-interface.git
+	url = https://github.com/Package-Repository/motor_interface/tree/a22aa85d8c180ba6fc1bd16feeabd575131b598f
 [submodule "vision"]
 	path = vision
 	url = https://github.com/Package-Repository/vision.git
