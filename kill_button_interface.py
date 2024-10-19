@@ -1,7 +1,7 @@
 import can
 from multiprocessing import Process, Value
 
-class KillButtonInterface:
+class Kill_Button_Interface:
     def __init__(self, running):
             self.running = running
             self.filters = [{"can_id": 0x007, "can_mask": 0x7FF}]

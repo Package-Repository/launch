@@ -16,4 +16,25 @@ class SharedMemoryWrapper:
         self.current_color_index    = Value('i', 0)
         self.depth                  = Value('d', 0) 
         self.running                = Value('i', 1)
+
+        self.dvl_yaw                = Value('d', 0)
+        self.dvl_pitch              = Value('d', 0)
+        self.dvl_roll               = Value('d', 0)
+        self.dvl_x                  = Value('d', 0)
+        self.dvl_y                  = Value('d', 0)
+        self.dvl_z                  = Value('d', 0)
+
+        self.dvl_x_velocity         = Value('d', 0)
+        self.dvl_y_velocity         = Value('d', 0)
+        self.dvl_z_velocity         = Value('d', 0)
+        self.dvl_velocity_valid     = Value('b', False)
+        self.dvl_status             = Value('b', False)
+        self.dvl_altitude           = Value('d', 0)
+
+        self.target_x               = Value('d', 0)
+        self.target_y               = Value('d', 1)
+        self.target_z               = Value('d', 0)
+        self.target_yaw             = Value('d', 0)
+        self.target_pitch           = Value('d', 0)
+        self.target_roll            = Value('d', 0)
     
