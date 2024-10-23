@@ -1,9 +1,12 @@
-[submodule "motors"]
-	path = motors
-	url = https://github.com/Package-Repository/motor-interface.git
-[submodule "vision"]
-	path = vision
-	url = https://github.com/Package-Repository/vision.git
-[submodule "sensors"]
-	path = sensors
-	url = https://github.com/Package-Repository/sensors.git
+[submodule "modules/motors"]
+	path = modules/motors
+	url = https://github.com/Package-Repository/motor_interface
+[submodule "modules/sensors"]
+	path = modules/sensors
+	url = https://github.com/Package-Repository/sensors
+[submodule "modules/vision"]
+	path = modules/vision
+	url = https://github.com/Package-Repository/vision
+[submodule "modules/pid"]
+	path = modules/pid
+	url = https://github.com/Package-Repository/pid
