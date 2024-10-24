@@ -2,7 +2,7 @@ import can
 import time
 from subprocess import run, call
 from multiprocessing import Process, Value
-from launch import main as launch
+from main.launch import main as launch
 import os 
 
 filters = [{"can_id": 0x007, "can_mask": 0x7FF}]

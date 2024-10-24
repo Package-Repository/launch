@@ -1,6 +1,6 @@
 from multiprocessing                import Process, Value
 from kill_button_interface          import Kill_Button_Interface
-from shared_memory                  import SharedMemoryWrapper
+from main.shared_memory                  import SharedMemoryWrapper
 from PID_controller.pid_interface   import PIDInterface
 from sensors.a50_dvl.dvl_interface  import DVL_Interface
 
