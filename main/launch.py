@@ -1,8 +1,8 @@
-from multiprocessing                import Process, Value
-from kill_button_interface          import Kill_Button_Interface
-from main.shared_memory                  import SharedMemoryWrapper
-from PID_controller.pid_interface   import PIDInterface
-from sensors.a50_dvl.dvl_interface  import DVL_Interface
+from multiprocessing                        import Process, Value
+from utils.kill_button_interface            import Kill_Button_Interface
+from shared_memory                          import SharedMemoryWrapper
+from modules.pid.pid_interface              import PIDInterface
+from modules.sensors.a50_dvl.dvl_interface  import DVL_Interface
 
 """
     discord: @kialli
