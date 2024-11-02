@@ -1,6 +1,10 @@
+import sys
+import os
 from multiprocessing                        import Process, Value
-from utils.kill_button_interface            import Kill_Button_Interface
 from shared_memory                          import SharedMemoryWrapper
+# change import file path to parent folder to get files in other dirs
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.kill_button_interface            import Kill_Button_Interface
 from modules.pid.pid_interface              import PIDInterface
 from modules.sensors.a50_dvl.dvl_interface  import DVL_Interface
 
