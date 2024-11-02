@@ -1,8 +1,11 @@
-from modules.sensors.depth_sensor import DepthSensor
+import sys
+import os
 import pyzed.sl as sl
 import socket
 import cv2
-
+# change import file path to parent folder to get files in other dirs
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from modules.sensors.depth_sensor import DepthSensor
 
 def test_depth_sensor():
     print("DEPTH SENSOR")
