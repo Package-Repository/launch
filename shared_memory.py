@@ -16,6 +16,7 @@ class SharedMemoryWrapper:
         self.current_color_index    = Value('i', 0)
         self.depth                  = Value('d', 0) 
         self.running                = Value('i', 1)
+        self.x_hard_deadzone        = Value('i', 0) # TESTME
 
         self.dvl_yaw                = Value('d', 0)
         self.dvl_pitch              = Value('d', 0)
@@ -31,6 +32,7 @@ class SharedMemoryWrapper:
         self.dvl_status             = Value('b', False)
         self.dvl_altitude           = Value('d', 0)
 
+        ### TEST ME ###
         self.target_x               = Value('d', 0)
         self.target_y               = Value('d', 1)
         self.target_z               = Value('d', 0)
