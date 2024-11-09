@@ -1,6 +1,9 @@
 from multiprocessing import Value, Array
 
 """
+discord: @kialli
+github: @kchan5071
+
 This file initializes shared memory values used throughout the code base
 
 """
