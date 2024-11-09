@@ -3,6 +3,14 @@ import socket
 import cv2
 from modules.sensors.depth_sensor import DepthSensor
 
+"""
+    discord: @kialli
+    github: @kchan5071
+
+    zed implementation, sensor testing
+
+"""
+
 def test_depth_sensor():
     print("DEPTH SENSOR")
     depth_sensor = DepthSensor()

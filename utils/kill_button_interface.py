@@ -1,6 +1,14 @@
 import can
 from multiprocessing import Process, Value
 
+"""
+    discord: @kialli
+    github: @kchan5071
+
+    Makes kill button end processes gracefully
+
+"""
+
 class Kill_Button_Interface:
     def __init__(self, running):
             self.running = running

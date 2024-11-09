@@ -2,8 +2,15 @@ import can
 import time
 from subprocess import run, call
 from multiprocessing import Process, Value
-from main.launch import main as launch
 import os 
+
+"""
+    discord: @kialli
+    github: @kchan5071
+
+    Waits for start button to run code
+
+"""
 
 filters = [{"can_id": 0x007, "can_mask": 0x7FF}]
 bus = can.Bus(interface='socketcan',channel = 'can0', receive_own_messages=True, can_filters = filters)
